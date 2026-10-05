@@ -1,0 +1,56 @@
+{
+    "actorSpecification": 1,
+    "fields": {
+        "type": "object",
+        "properties": {
+            "record_type": {
+                "type": "string",
+                "title": "Record Type"
+            },
+            "competition_name": {
+                "type": "string",
+                "title": "Competition Name"
+            },
+            "competition_id": {
+                "type": "string",
+                "title": "Tournament Code"
+            },
+            "country": {
+                "type": "string",
+                "title": "Country / Region"
+            },
+            "standings": {
+                "type": "array",
+                "title": "League Table Standings"
+            },
+            "matches_and_fixtures": {
+                "type": "array",
+                "title": "Fixtures & Live Match States"
+            },
+            "players_leaderboard": {
+                "type": "object",
+                "title": "Top Scorers & Assists Leaders"
+            },
+            "home_team": {
+                "type": "string",
+                "title": "H2H Home Team"
+            },
+            "away_team": {
+                "type": "string",
+                "title": "H2H Away Team"
+            },
+            "win_probability_home_pct": {
+                "type": "number",
+                "title": "Home Win Probability (%)"
+            },
+            "draw_probability_pct": {
+                "type": "number",
+                "title": "Draw Probability (%)"
+            },
+            "win_probability_away_pct": {
+                "type": "number",
+                "title": "Away Win Probability (%)"
+            }
+        }
+    }
+}
