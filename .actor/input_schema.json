@@ -1,0 +1,72 @@
+{
+    "title": "Football Intelligence Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "selectedLeagues": {
+            "title": "Selected Leagues & Tournaments",
+            "type": "array",
+            "description": "Select football competitions to harvest data for (leave empty for all supported).",
+            "default": [
+                "English Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+                "Indian Super League (ISL) 🇮🇳",
+                "Spanish La Liga 🇪🇸",
+                "German Bundesliga 🇩🇪",
+                "Italian Serie A 🇮🇹",
+                "French Ligue 1 🇫🇷",
+                "Saudi Pro League 🇸🇦",
+                "Moroccan Botola Pro 🇲🇦",
+                "Major League Soccer (MLS) 🇺🇸",
+                "UEFA Champions League 🇪🇺",
+                "CAF Champions League 🌍",
+                "AFC Champions League Elite 🌏",
+                "FIFA World Cup 2026 🏆"
+            ],
+            "editor": "stringList"
+        },
+        "includeStandings": {
+            "title": "Include League Table Standings",
+            "type": "boolean",
+            "description": "Include points, goal difference, win/draw/loss records, and recent form guide.",
+            "default": true
+        },
+        "includeFixturesAndLiveScores": {
+            "title": "Include Live Matches & Upcoming Fixtures",
+            "type": "boolean",
+            "description": "Include real-time match events, minutes, live scores, and venue metadata.",
+            "default": true
+        },
+        "includeTopScorers": {
+            "title": "Include Player Leaderboards & Top Scorers",
+            "type": "boolean",
+            "description": "Include top goalscorers, assists leaders, xG metrics, and player attributes.",
+            "default": true
+        },
+        "simulateH2H": {
+            "title": "Run Head-to-Head (H2H) Poisson Simulation",
+            "type": "boolean",
+            "description": "Calculate bivariate Poisson match probability distribution and expected goals.",
+            "default": true
+        },
+        "simulateH2HHomeTeam": {
+            "title": "H2H Simulation: Home Team",
+            "type": "string",
+            "description": "Home club name for probability simulation.",
+            "default": "Manchester City",
+            "editor": "textfield"
+        },
+        "simulateH2HAwayTeam": {
+            "title": "H2H Simulation: Away Team",
+            "type": "string",
+            "description": "Away club name for probability simulation.",
+            "default": "Arsenal",
+            "editor": "textfield"
+        },
+        "apiKey": {
+            "title": "Apify API Token / Custom Key",
+            "type": "string",
+            "description": "Optional Apify API token or custom authentication key for MCP and programmatic triggers.",
+            "editor": "textfield"
+        }
+    }
+}
