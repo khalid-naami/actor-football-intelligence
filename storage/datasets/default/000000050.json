@@ -1,0 +1,19 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "CAF Champions League 🌍",
+  "competition_id": "CAFCL",
+  "home_team": "Fomboni",
+  "home_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+  "away_team": "15 de Agosto",
+  "away_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+  "score_home": 0,
+  "score_away": 1,
+  "status": "FT",
+  "minute": "Full Time",
+  "stadium": "Stade Omnisports de Malouzini, Iconi",
+  "xg_home": 1.91,
+  "xg_away": 1.78,
+  "possession_home": 51,
+  "possession_away": 49,
+  "events": []
+}
