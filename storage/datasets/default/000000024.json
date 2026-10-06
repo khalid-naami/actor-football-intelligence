@@ -1,0 +1,28 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "FIFA World Cup 2026 🌍",
+  "competition_id": "FWC2026",
+  "home_team": "Spain",
+  "home_logo": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
+  "away_team": "Argentina",
+  "away_logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+  "score_home": 1,
+  "score_away": 0,
+  "status": "FT",
+  "minute": "Full Time",
+  "stadium": "MetLife Stadium, East Rutherford, New Jersey",
+  "xg_home": 1.9,
+  "xg_away": 1.31,
+  "possession_home": 57,
+  "possession_away": 43,
+  "events": [
+    "41'' Lisandro Martínez (Yellow Card)",
+    "52'' Leandro Paredes (Yellow Card)",
+    "82'' Enzo Fernández (Yellow Card)",
+    "90'+2'' Cristian Romero (Yellow Card)",
+    "90'+3'' Enzo Fernández (Red Card)",
+    "104'' Yellow Card",
+    "106'' Ferran Torres (Goal)",
+    "111'' Alexis Mac Allister (Yellow Card)"
+  ]
+}
