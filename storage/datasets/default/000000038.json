@@ -1,0 +1,21 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "Moroccan Botola Pro 🇲🇦",
+  "competition_id": "BOT",
+  "home_team": "Top Seed A",
+  "home_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+  "away_team": "Challenger B",
+  "away_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+  "score_home": 1,
+  "score_away": 0,
+  "status": "LIVE",
+  "minute": "67'",
+  "stadium": "Main National Stadium",
+  "xg_home": 1.45,
+  "xg_away": 0.85,
+  "possession_home": 55,
+  "possession_away": 45,
+  "events": [
+    "34' Goal (1-0)"
+  ]
+}
