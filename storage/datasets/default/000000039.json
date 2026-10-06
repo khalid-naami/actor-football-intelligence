@@ -1,0 +1,24 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "Moroccan Botola Pro 🇲🇦",
+  "competition_id": "BOT",
+  "home_team": "Contender C",
+  "home_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+  "away_team": "Contender D",
+  "away_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+  "score_home": 2,
+  "score_away": 2,
+  "status": "FT",
+  "minute": "Full Time",
+  "stadium": "City Arena",
+  "xg_home": 1.8,
+  "xg_away": 1.75,
+  "possession_home": 49,
+  "possession_away": 51,
+  "events": [
+    "12' (1-0)",
+    "40' (1-1)",
+    "70' (2-1)",
+    "88' (2-2)"
+  ]
+}
