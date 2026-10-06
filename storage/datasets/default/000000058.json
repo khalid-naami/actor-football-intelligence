@@ -1,0 +1,26 @@
+{
+  "record_type": "h2h_poisson_prediction",
+  "home_team": "Manchester City",
+  "away_team": "Arsenal",
+  "home_expected_goals_xg": 2.66,
+  "away_expected_goals_xg": 1.52,
+  "win_probability_home_pct": 60.0,
+  "draw_probability_pct": 18.7,
+  "win_probability_away_pct": 21.3,
+  "over_2_5_goals_probability_pct": 72.9,
+  "both_teams_to_score_btts_pct": 68.1,
+  "most_likely_scorelines": [
+    {
+      "score": "2 - 1",
+      "probability_pct": 8.2
+    },
+    {
+      "score": "3 - 1",
+      "probability_pct": 7.3
+    },
+    {
+      "score": "2 - 2",
+      "probability_pct": 6.3
+    }
+  ]
+}
