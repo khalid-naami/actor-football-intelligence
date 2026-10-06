@@ -1,0 +1,201 @@
+{
+  "record_type": "competition_summary",
+  "competition_name": "FIFA World Cup 2026 🌍",
+  "competition_id": "FWC2026",
+  "country": "USA / Mexico / Canada (Joint Hosts)",
+  "confederation": "FIFA",
+  "type": "Global National Tournament",
+  "market_value": "€24.5 Billion (Total Squads Value)",
+  "teams_count": 4,
+  "avg_goals_per_game": 3.1,
+  "defending_champion": "Argentina (Qatar 2022 Winner)",
+  "most_successful_club": "Brazil (5 Stars)",
+  "standings": [
+    {
+      "rank": 1,
+      "team": "Mexico",
+      "p": 3,
+      "w": 3,
+      "d": 0,
+      "l": 0,
+      "gf": 6,
+      "ga": 0,
+      "gd": 6,
+      "pts": 9,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    },
+    {
+      "rank": 4,
+      "team": "Czechia",
+      "p": 3,
+      "w": 0,
+      "d": 1,
+      "l": 2,
+      "gf": 2,
+      "ga": 6,
+      "gd": -4,
+      "pts": 1,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    },
+    {
+      "rank": 3,
+      "team": "South Korea",
+      "p": 3,
+      "w": 1,
+      "d": 0,
+      "l": 2,
+      "gf": 2,
+      "ga": 3,
+      "gd": -1,
+      "pts": 3,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    },
+    {
+      "rank": 2,
+      "team": "South Africa",
+      "p": 3,
+      "w": 1,
+      "d": 1,
+      "l": 1,
+      "gf": 2,
+      "ga": 3,
+      "gd": -1,
+      "pts": 4,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    }
+  ],
+  "matches_and_fixtures": [
+    {
+      "id": "760517",
+      "home_team": "Spain",
+      "home_logo": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
+      "away_team": "Argentina",
+      "away_logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "status": "FT",
+      "minute": "Full Time",
+      "score_home": 1,
+      "score_away": 0,
+      "xg_home": 1.9,
+      "xg_away": 1.31,
+      "possession_home": 57,
+      "possession_away": 43,
+      "shots_home": 10,
+      "shots_away": 7,
+      "stadium": "MetLife Stadium, East Rutherford, New Jersey",
+      "referee": "FIFA Match Official",
+      "events": [
+        "41'' Lisandro Martínez (Yellow Card)",
+        "52'' Leandro Paredes (Yellow Card)",
+        "82'' Enzo Fernández (Yellow Card)",
+        "90'+2'' Cristian Romero (Yellow Card)",
+        "90'+3'' Enzo Fernández (Red Card)",
+        "104'' Yellow Card",
+        "106'' Ferran Torres (Goal)",
+        "111'' Alexis Mac Allister (Yellow Card)"
+      ],
+      "is_live_feed": true
+    }
+  ],
+  "players_leaderboard": {
+    "top_scorers": [
+      {
+        "rank": 1,
+        "player": "Erling Haaland",
+        "team": "Manchester City",
+        "goals": 10,
+        "pens": 1,
+        "matches": 7,
+        "xg": 8.4,
+        "mins_per_goal": 63
+      },
+      {
+        "rank": 2,
+        "player": "Cole Palmer",
+        "team": "Chelsea",
+        "goals": 6,
+        "pens": 1,
+        "matches": 7,
+        "xg": 5.2,
+        "mins_per_goal": 98
+      },
+      {
+        "rank": 3,
+        "player": "Luis Díaz",
+        "team": "Liverpool",
+        "goals": 5,
+        "pens": 0,
+        "matches": 7,
+        "xg": 4.1,
+        "mins_per_goal": 102
+      },
+      {
+        "rank": 4,
+        "player": "Bryan Mbeumo",
+        "team": "Brentford",
+        "goals": 5,
+        "pens": 1,
+        "matches": 7,
+        "xg": 3.8,
+        "mins_per_goal": 124
+      },
+      {
+        "rank": 5,
+        "player": "Mohamed Salah",
+        "team": "Liverpool",
+        "goals": 4,
+        "pens": 1,
+        "matches": 7,
+        "xg": 4.5,
+        "mins_per_goal": 145
+      },
+      {
+        "rank": 6,
+        "player": "Ollie Watkins",
+        "team": "Aston Villa",
+        "goals": 4,
+        "pens": 0,
+        "matches": 7,
+        "xg": 4.2,
+        "mins_per_goal": 138
+      }
+    ],
+    "top_assists": [
+      {
+        "rank": 1,
+        "player": "Bukayo Saka",
+        "team": "Arsenal",
+        "assists": 7,
+        "key_passes": 28,
+        "big_chances_created": 9
+      },
+      {
+        "rank": 2,
+        "player": "Cole Palmer",
+        "team": "Chelsea",
+        "assists": 4,
+        "key_passes": 22,
+        "big_chances_created": 7
+      },
+      {
+        "rank": 3,
+        "player": "Mohamed Salah",
+        "team": "Liverpool",
+        "assists": 4,
+        "key_passes": 19,
+        "big_chances_created": 6
+      },
+      {
+        "rank": 4,
+        "player": "James Maddison",
+        "team": "Tottenham Hotspur",
+        "assists": 3,
+        "key_passes": 18,
+        "big_chances_created": 5
+      }
+    ]
+  }
+}
