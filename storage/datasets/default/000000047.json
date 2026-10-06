@@ -1,0 +1,19 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "Brazilian Série A (Brasileirão) 🇧🇷",
+  "competition_id": "BRA",
+  "home_team": "Botafogo",
+  "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6086.png",
+  "away_team": "Vasco da Gama",
+  "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3454.png",
+  "score_home": 0,
+  "score_away": 0,
+  "status": "UPCOMING",
+  "minute": "Wed, October 7th at 7:30 PM EDT",
+  "stadium": "Joao Havelange Stadium, Rio de Janeiro",
+  "xg_home": 0.0,
+  "xg_away": 0.0,
+  "possession_home": 50,
+  "possession_away": 50,
+  "events": []
+}
