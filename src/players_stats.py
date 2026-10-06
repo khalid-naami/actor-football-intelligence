@@ -10,47 +10,102 @@ import pandas as pd
 PLAYERS_LEADERBOARD: Dict[str, Dict[str, List[Dict[str, Any]]]] = {
     "English Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿": {
         "top_scorers": [
-            {"rank": 1, "player": "Erling Haaland", "team": "Manchester City", "goals": 18, "pens": 2, "matches": 23, "xg": 17.4, "mins_per_goal": 105},
-            {"rank": 2, "player": "Ollie Watkins", "team": "Aston Villa", "goals": 16, "pens": 0, "matches": 29, "xg": 14.8, "mins_per_goal": 158},
-            {"rank": 3, "player": "Mohamed Salah", "team": "Liverpool", "goals": 15, "pens": 4, "matches": 22, "xg": 15.2, "mins_per_goal": 121},
-            {"rank": 4, "player": "Dominic Solanke", "team": "Tottenham Hotspur", "goals": 14, "pens": 1, "matches": 28, "xg": 13.9, "mins_per_goal": 174},
-            {"rank": 5, "player": "Bukayo Saka", "team": "Arsenal", "goals": 13, "pens": 3, "matches": 27, "xg": 11.8, "mins_per_goal": 182}
+            {"rank": 1, "player": "Erling Haaland", "team": "Manchester City", "goals": 10, "pens": 1, "matches": 7, "xg": 8.4, "mins_per_goal": 63},
+            {"rank": 2, "player": "Cole Palmer", "team": "Chelsea", "goals": 6, "pens": 1, "matches": 7, "xg": 5.2, "mins_per_goal": 98},
+            {"rank": 3, "player": "Luis Díaz", "team": "Liverpool", "goals": 5, "pens": 0, "matches": 7, "xg": 4.1, "mins_per_goal": 102},
+            {"rank": 4, "player": "Bryan Mbeumo", "team": "Brentford", "goals": 5, "pens": 1, "matches": 7, "xg": 3.8, "mins_per_goal": 124},
+            {"rank": 5, "player": "Mohamed Salah", "team": "Liverpool", "goals": 4, "pens": 1, "matches": 7, "xg": 4.5, "mins_per_goal": 145},
+            {"rank": 6, "player": "Ollie Watkins", "team": "Aston Villa", "goals": 4, "pens": 0, "matches": 7, "xg": 4.2, "mins_per_goal": 138}
         ],
         "top_assists": [
-            {"rank": 1, "player": "Bukayo Saka", "team": "Arsenal", "assists": 12, "key_passes": 74, "big_chances_created": 18},
-            {"rank": 2, "player": "Cole Palmer", "team": "Chelsea", "assists": 11, "key_passes": 68, "big_chances_created": 16},
-            {"rank": 3, "player": "Kevin De Bruyne", "team": "Manchester City", "assists": 10, "key_passes": 62, "big_chances_created": 17},
-            {"rank": 4, "player": "Mohamed Salah", "team": "Liverpool", "assists": 9, "key_passes": 59, "big_chances_created": 15}
-        ]
-    },
-
-    "Indian Super League (ISL) 🇮🇳": {
-        "top_scorers": [
-            {"rank": 1, "player": "Dimitrios Diamantakos", "team": "Kerala Blasters / East Bengal", "goals": 13, "pens": 3, "matches": 17, "xg": 11.8, "mins_per_goal": 110},
-            {"rank": 2, "player": "Roy Krishna", "team": "Odisha FC", "goals": 13, "pens": 1, "matches": 22, "xg": 12.4, "mins_per_goal": 145},
-            {"rank": 3, "player": "Jason Cummings", "team": "Mohun Bagan Super Giant", "goals": 12, "pens": 2, "matches": 22, "xg": 10.9, "mins_per_goal": 138},
-            {"rank": 4, "player": "Noah Sadaoui", "team": "Kerala Blasters / FC Goa", "goals": 11, "pens": 2, "matches": 20, "xg": 10.1, "mins_per_goal": 152},
-            {"rank": 5, "player": "Lallianzuala Chhangte", "team": "Mumbai City FC", "goals": 10, "pens": 1, "matches": 22, "xg": 8.9, "mins_per_goal": 185}
-        ],
-        "top_assists": [
-            {"rank": 1, "player": "Madih Talal", "team": "East Bengal / Punjab FC", "assists": 10, "key_passes": 57, "big_chances_created": 14},
-            {"rank": 2, "player": "Manvir Singh", "team": "Mohun Bagan Super Giant", "assists": 7, "key_passes": 42, "big_chances_created": 11},
-            {"rank": 3, "player": "Lallianzuala Chhangte", "team": "Mumbai City FC", "assists": 6, "key_passes": 48, "big_chances_created": 12},
-            {"rank": 4, "player": "Amey Ranawade", "team": "Odisha FC", "assists": 6, "key_passes": 38, "big_chances_created": 9}
+            {"rank": 1, "player": "Bukayo Saka", "team": "Arsenal", "assists": 7, "key_passes": 28, "big_chances_created": 9},
+            {"rank": 2, "player": "Cole Palmer", "team": "Chelsea", "assists": 4, "key_passes": 22, "big_chances_created": 7},
+            {"rank": 3, "player": "Mohamed Salah", "team": "Liverpool", "assists": 4, "key_passes": 19, "big_chances_created": 6},
+            {"rank": 4, "player": "James Maddison", "team": "Tottenham Hotspur", "assists": 3, "key_passes": 18, "big_chances_created": 5}
         ]
     },
 
     "Spanish La Liga 🇪🇸": {
         "top_scorers": [
-            {"rank": 1, "player": "Robert Lewandowski", "team": "FC Barcelona", "goals": 19, "pens": 2, "matches": 20, "xg": 18.2, "mins_per_goal": 92},
-            {"rank": 2, "player": "Kylian Mbappé", "team": "Real Madrid", "goals": 16, "pens": 4, "matches": 21, "xg": 15.6, "mins_per_goal": 114},
-            {"rank": 3, "player": "Raphinha", "team": "FC Barcelona", "goals": 13, "pens": 1, "matches": 21, "xg": 11.4, "mins_per_goal": 132},
-            {"rank": 4, "player": "Vinícius Júnior", "team": "Real Madrid", "goals": 12, "pens": 2, "matches": 19, "xg": 11.8, "mins_per_goal": 135}
+            {"rank": 1, "player": "Robert Lewandowski", "team": "FC Barcelona", "goals": 10, "pens": 2, "matches": 9, "xg": 8.9, "mins_per_goal": 76},
+            {"rank": 2, "player": "Ayoze Pérez", "team": "Villarreal", "goals": 6, "pens": 0, "matches": 7, "xg": 4.8, "mins_per_goal": 92},
+            {"rank": 3, "player": "Raphinha", "team": "FC Barcelona", "goals": 5, "pens": 0, "matches": 9, "xg": 5.1, "mins_per_goal": 142},
+            {"rank": 4, "player": "Kylian Mbappé", "team": "Real Madrid", "goals": 5, "pens": 3, "matches": 8, "xg": 6.2, "mins_per_goal": 136},
+            {"rank": 5, "player": "Giovani Lo Celso", "team": "Real Betis", "goals": 5, "pens": 1, "matches": 6, "xg": 3.7, "mins_per_goal": 98},
+            {"rank": 6, "player": "Lamine Yamal", "team": "FC Barcelona", "goals": 4, "pens": 0, "matches": 9, "xg": 3.4, "mins_per_goal": 184}
         ],
         "top_assists": [
-            {"rank": 1, "player": "Lamine Yamal", "team": "FC Barcelona", "assists": 11, "key_passes": 61, "big_chances_created": 19},
-            {"rank": 2, "player": "Raphinha", "team": "FC Barcelona", "assists": 9, "key_passes": 55, "big_chances_created": 16},
-            {"rank": 3, "player": "Vinícius Júnior", "team": "Real Madrid", "assists": 8, "key_passes": 49, "big_chances_created": 14}
+            {"rank": 1, "player": "Lamine Yamal", "team": "FC Barcelona", "assists": 5, "key_passes": 24, "big_chances_created": 8},
+            {"rank": 2, "player": "Raphinha", "team": "FC Barcelona", "assists": 4, "key_passes": 29, "big_chances_created": 9},
+            {"rank": 3, "player": "Vinícius Júnior", "team": "Real Madrid", "assists": 4, "key_passes": 21, "big_chances_created": 7},
+            {"rank": 4, "player": "Álex Baena", "team": "Villarreal", "assists": 4, "key_passes": 20, "big_chances_created": 6}
+        ]
+    },
+
+    "German Bundesliga 🇩🇪": {
+        "top_scorers": [
+            {"rank": 1, "player": "Omar Marmoush", "team": "Eintracht Frankfurt", "goals": 8, "pens": 1, "matches": 6, "xg": 5.8, "mins_per_goal": 64},
+            {"rank": 2, "player": "Harry Kane", "team": "Bayern Munich", "goals": 5, "pens": 2, "matches": 6, "xg": 5.2, "mins_per_goal": 94},
+            {"rank": 3, "player": "Jonathan Burkardt", "team": "FSV Mainz 05", "goals": 5, "pens": 0, "matches": 6, "xg": 4.1, "mins_per_goal": 105},
+            {"rank": 4, "player": "Victor Boniface", "team": "Bayer Leverkusen", "goals": 4, "pens": 0, "matches": 6, "xg": 4.6, "mins_per_goal": 112}
+        ],
+        "top_assists": [
+            {"rank": 1, "player": "Harry Kane", "team": "Bayern Munich", "assists": 5, "key_passes": 16, "big_chances_created": 6},
+            {"rank": 2, "player": "Omar Marmoush", "team": "Eintracht Frankfurt", "assists": 4, "key_passes": 18, "big_chances_created": 5},
+            {"rank": 3, "player": "Florian Wirtz", "team": "Bayer Leverkusen", "assists": 3, "key_passes": 20, "big_chances_created": 5}
+        ]
+    },
+
+    "Italian Serie A 🇮🇹": {
+        "top_scorers": [
+            {"rank": 1, "player": "Mateo Retegui", "team": "Atalanta", "goals": 7, "pens": 2, "matches": 7, "xg": 5.9, "mins_per_goal": 78},
+            {"rank": 2, "player": "Marcus Thuram", "team": "Inter Milan", "goals": 7, "pens": 0, "matches": 7, "xg": 6.1, "mins_per_goal": 82},
+            {"rank": 3, "player": "Christian Pulisic", "team": "AC Milan", "goals": 5, "pens": 1, "matches": 7, "xg": 4.2, "mins_per_goal": 115},
+            {"rank": 4, "player": "Dušan Vlahović", "team": "Juventus", "goals": 5, "pens": 2, "matches": 7, "xg": 4.8, "mins_per_goal": 120}
+        ],
+        "top_assists": [
+            {"rank": 1, "player": "Romelu Lukaku", "team": "Napoli", "assists": 4, "key_passes": 14, "big_chances_created": 5},
+            {"rank": 2, "player": "Rafael Leão", "team": "AC Milan", "assists": 3, "key_passes": 17, "big_chances_created": 6},
+            {"rank": 3, "player": "Ademola Lookman", "team": "Atalanta", "assists": 3, "key_passes": 15, "big_chances_created": 4}
+        ]
+    },
+
+    "Saudi Pro League 🇸🇦": {
+        "top_scorers": [
+            {"rank": 1, "player": "Aleksandar Mitrović", "team": "Al Hilal", "goals": 9, "pens": 2, "matches": 6, "xg": 8.1, "mins_per_goal": 60},
+            {"rank": 2, "player": "Karim Benzema", "team": "Al Ittihad", "goals": 7, "pens": 0, "matches": 6, "xg": 5.8, "mins_per_goal": 77},
+            {"rank": 3, "player": "Cristiano Ronaldo", "team": "Al Nassr", "goals": 5, "pens": 2, "matches": 6, "xg": 5.2, "mins_per_goal": 108},
+            {"rank": 4, "player": "Houssem Aouar", "team": "Al Ittihad", "goals": 5, "pens": 0, "matches": 6, "xg": 3.9, "mins_per_goal": 105}
+        ],
+        "top_assists": [
+            {"rank": 1, "player": "Moussa Diaby", "team": "Al Ittihad", "assists": 7, "key_passes": 22, "big_chances_created": 8},
+            {"rank": 2, "player": "Sadio Mané", "team": "Al Nassr", "assists": 5, "key_passes": 18, "big_chances_created": 6},
+            {"rank": 3, "player": "Rúben Neves", "team": "Al Hilal", "assists": 4, "key_passes": 19, "big_chances_created": 5}
+        ]
+    },
+
+    "UEFA Champions League 🏆": {
+        "top_scorers": [
+            {"rank": 1, "player": "Harry Kane", "team": "Bayern Munich", "goals": 4, "pens": 3, "matches": 2, "xg": 3.8, "mins_per_goal": 45},
+            {"rank": 2, "player": "Serhou Guirassy", "team": "Borussia Dortmund", "goals": 3, "pens": 1, "matches": 2, "xg": 2.7, "mins_per_goal": 58},
+            {"rank": 3, "player": "Karim Adeyemi", "team": "Borussia Dortmund", "goals": 3, "pens": 0, "matches": 2, "xg": 2.1, "mins_per_goal": 52},
+            {"rank": 4, "player": "Abdallah Sima", "team": "Brest", "goals": 3, "pens": 0, "matches": 2, "xg": 1.9, "mins_per_goal": 59}
+        ],
+        "top_assists": [
+            {"rank": 1, "player": "Joshua Kimmich", "team": "Bayern Munich", "assists": 3, "key_passes": 9, "big_chances_created": 4},
+            {"rank": 2, "player": "Vinícius Júnior", "team": "Real Madrid", "assists": 2, "key_passes": 8, "big_chances_created": 3}
+        ]
+    },
+
+    "Indian Super League (ISL) 🇮🇳": {
+        "top_scorers": [
+            {"rank": 1, "player": "Alaaeddine Ajaraie", "team": "NorthEast United FC", "goals": 5, "pens": 0, "matches": 4, "xg": 3.8, "mins_per_goal": 70},
+            {"rank": 2, "player": "Armando Sadiku", "team": "FC Goa", "goals": 4, "pens": 1, "matches": 4, "xg": 3.2, "mins_per_goal": 85},
+            {"rank": 3, "player": "Sunil Chhetri", "team": "Bengaluru FC", "goals": 3, "pens": 1, "matches": 4, "xg": 2.4, "mins_per_goal": 68}
+        ],
+        "top_assists": [
+            {"rank": 1, "player": "Madih Talal", "team": "East Bengal FC", "assists": 3, "key_passes": 14, "big_chances_created": 4},
+            {"rank": 2, "player": "Alberto Noguera", "team": "Bengaluru FC", "assists": 2, "key_passes": 11, "big_chances_created": 3}
         ]
     }
 }
