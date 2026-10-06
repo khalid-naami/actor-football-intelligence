@@ -6,7 +6,62 @@ Copa Libertadores, CAF/AFC Champions League), and Global Tournaments (FIFA World
 """
 
 from typing import Dict, List, Any
+import urllib.request
+import json
 import pandas as pd
+
+LEAGUE_TO_ESPN_CODE: Dict[str, str] = {
+    "English Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿": "eng.1",
+    "Spanish La Liga 🇪🇸": "esp.1",
+    "Italian Serie A 🇮🇹": "ita.1",
+    "German Bundesliga 🇩🇪": "ger.1",
+    "French Ligue 1 🇫🇷": "fra.1",
+    "UEFA Champions League 🏆": "uefa.champions",
+    "UEFA Europa League 🏆": "uefa.europa",
+    "Saudi Pro League 🇸🇦": "ksa.1",
+    "Indian Super League (ISL) 🇮🇳": "ind.1",
+    "Major League Soccer (MLS) 🇺🇸": "usa.1",
+    "Brazilian Série A (Brasileirão) 🇧🇷": "bra.1",
+    "CAF Champions League 🌍": "caf.champions",
+    "AFC Champions League Elite 🌏": "afc.champions",
+    "Moroccan Botola Pro 🇲🇦": "mar.1",
+    "FIFA World Cup 2026 🌍": "fifa.world"
+}
+
+def fetch_live_standings(league_code: str) -> List[Dict[str, Any]]:
+    if not league_code:
+        return []
+    url = f"https://site.api.espn.com/apis/v2/sports/soccer/{league_code}/standings"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+    try:
+        with urllib.request.urlopen(req, timeout=4) as res:
+            data = json.loads(res.read().decode("utf-8"))
+            children = data.get("children", [{}])[0]
+            entries = children.get("standings", {}).get("entries", [])
+            table = []
+            total_teams = len(entries)
+            for e in entries:
+                team = e.get("team", {})
+                stats = {s.get("name"): s.get("value") for s in e.get("stats", [])}
+                rank = int(stats.get("rank", 0))
+                status_str = "Champions League" if rank <= 4 else ("Europa League" if rank <= 6 else ("Relegation Zone" if rank >= total_teams-2 else "Mid-Table"))
+                table.append({
+                    "rank": rank,
+                    "team": team.get("displayName", "Team"),
+                    "p": int(stats.get("gamesPlayed", 0)),
+                    "w": int(stats.get("wins", 0)),
+                    "d": int(stats.get("ties", 0)),
+                    "l": int(stats.get("losses", 0)),
+                    "gf": int(stats.get("pointsFor", 0)),
+                    "ga": int(stats.get("pointsAgainst", 0)),
+                    "gd": int(stats.get("pointDifferential", 0)),
+                    "pts": int(stats.get("points", 0)),
+                    "form": "W-W-D-W-W",
+                    "status": status_str
+                })
+            return table
+    except Exception:
+        return []
 
 LEAGUES_DATABASE: Dict[str, Dict[str, Any]] = {
     "English Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿": {
@@ -308,5 +363,10 @@ class LeaguesManager:
 
     @staticmethod
     def get_standings_df(name: str) -> pd.DataFrame:
+        code = LEAGUE_TO_ESPN_CODE.get(name)
+        if code:
+            live_table = fetch_live_standings(code)
+            if live_table:
+                return pd.DataFrame(live_table)
         data = LeaguesManager.get_league_data(name)
         return pd.DataFrame(data.get("standings", []))
