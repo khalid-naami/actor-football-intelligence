@@ -1,0 +1,19 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "Italian Serie A 🇮🇹",
+  "competition_id": "ISA",
+  "home_team": "Genoa",
+  "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3263.png",
+  "away_team": "Fiorentina",
+  "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/109.png",
+  "score_home": 0,
+  "score_away": 0,
+  "status": "UPCOMING",
+  "minute": "Sat, October 10th at 9:00 AM EDT",
+  "stadium": "Stadio Luigi Ferraris, Genova",
+  "xg_home": 0.0,
+  "xg_away": 0.0,
+  "possession_home": 50,
+  "possession_away": 50,
+  "events": []
+}
