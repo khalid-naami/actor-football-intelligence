@@ -1,0 +1,29 @@
+{
+  "totalCompetitionsAnalyzed": 14,
+  "totalRecordsPushed": 58,
+  "liveMatchesDetected": 1,
+  "competitions": [
+    "English Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    "Spanish La Liga 🇪🇸",
+    "Indian Super League (ISL) 🇮🇳",
+    "UEFA Champions League 🏆",
+    "FIFA World Cup 2026 🌍",
+    "Italian Serie A 🇮🇹",
+    "German Bundesliga 🇩🇪",
+    "French Ligue 1 🇫🇷",
+    "Saudi Pro League 🇸🇦",
+    "Moroccan Botola Pro 🇲🇦",
+    "Major League Soccer (MLS) 🇺🇸",
+    "Brazilian Série A (Brasileirão) 🇧🇷",
+    "CAF Champions League 🌍",
+    "AFC Champions League Elite 🌏"
+  ],
+  "h2hSimulation": {
+    "matchup": "Manchester City vs Arsenal",
+    "home_xg": 2.66,
+    "away_xg": 1.52,
+    "home_win_prob": 60.0,
+    "draw_prob": 18.7,
+    "away_win_prob": 21.3
+  }
+}
