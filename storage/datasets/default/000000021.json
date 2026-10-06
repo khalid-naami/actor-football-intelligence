@@ -1,0 +1,19 @@
+{
+  "record_type": "live_match_event",
+  "competition_name": "UEFA Champions League 🏆",
+  "competition_id": "UCL",
+  "home_team": "Viking FK",
+  "home_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/510.png",
+  "away_team": "Bayern Munich",
+  "away_logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+  "score_home": 0,
+  "score_away": 0,
+  "status": "UPCOMING",
+  "minute": "Tue, October 13th at 3:00 PM EDT",
+  "stadium": "Viking Stadion, Stavanger",
+  "xg_home": 0.0,
+  "xg_away": 0.0,
+  "possession_home": 50,
+  "possession_away": 50,
+  "events": []
+}
