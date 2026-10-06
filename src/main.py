@@ -1,11 +1,11 @@
-"""Apify Actor Entrypoint: Global Football Intelligence & Poisson H2H Predictor."""
+"""Apify Actor Entrypoint: Global Football Intelligence & Live Matchday Scoreboard."""
 
 import asyncio
 import os
 from apify import Actor
 from src.leagues_database import LEAGUES_DATABASE, LeaguesManager
-from src.matches_engine import LEAGUES_MATCHES
-from src.players_stats import PLAYERS_LEADERBOARD
+from src.matches_engine import MatchesEngine
+from src.players_stats import PlayersStatsManager, PLAYERS_LEADERBOARD
 from src.h2h_predictor_engine import H2HPredictorEngine
 
 async def main() -> None:
@@ -23,15 +23,52 @@ async def main() -> None:
         all_leagues = LeaguesManager.get_all_league_names()
         target_leagues = [lg for lg in selected_leagues if lg in LEAGUES_DATABASE] if selected_leagues else all_leagues
 
-        Actor.log.info(f"Processing Football Intelligence across {len(target_leagues)} competitions...")
+        Actor.log.info(f"Processing Live Football Intelligence across {len(target_leagues)} competitions...")
         if api_key:
             Actor.log.info("API Key / Token authentication provided.")
 
         dataset_records = []
+        live_matches_count = 0
 
-        # 1. League Records (Standings, Matches, Players)
+        # 1. League Records with REAL LIVE STANDINGS & REAL LIVE MATCHES
         for league_name in target_leagues:
             league_meta = LEAGUES_DATABASE[league_name]
+
+            # Fetch fresh real-time live standings
+            standings_records = []
+            if include_standings:
+                try:
+                    df_standings = LeaguesManager.get_standings_df(league_name)
+                    standings_records = df_standings.to_dict(orient="records") if not df_standings.empty else league_meta.get("standings", [])
+                except Exception as e:
+                    Actor.log.warning(f"Standings fetch warning for {league_name}: {e}")
+                    standings_records = league_meta.get("standings", [])
+
+            # Fetch fresh real-time live matches & upcoming fixtures
+            matches_records = []
+            if include_matches:
+                try:
+                    matches_records = MatchesEngine.get_league_matches(league_name)
+                    for m in matches_records:
+                        if m.get("status") == "LIVE":
+                            live_matches_count += 1
+                except Exception as e:
+                    Actor.log.warning(f"Matches fetch warning for {league_name}: {e}")
+                    matches_records = []
+
+            # Fetch current top scorers & assists
+            players_data = {}
+            if include_players:
+                try:
+                    df_scorers = PlayersStatsManager.get_top_scorers_df(league_name)
+                    df_assists = PlayersStatsManager.get_top_assists_df(league_name)
+                    players_data = {
+                        "top_scorers": df_scorers.to_dict(orient="records") if not df_scorers.empty else [],
+                        "top_assists": df_assists.to_dict(orient="records") if not df_assists.empty else []
+                    }
+                except Exception as e:
+                    players_data = PLAYERS_LEADERBOARD.get(league_name, {})
+
             record = {
                 "record_type": "competition_summary",
                 "competition_name": league_name,
@@ -40,22 +77,45 @@ async def main() -> None:
                 "confederation": league_meta.get("confederation"),
                 "type": league_meta.get("type"),
                 "market_value": league_meta.get("market_value"),
-                "teams_count": league_meta.get("teams_count"),
+                "teams_count": len(standings_records) if standings_records else league_meta.get("teams_count"),
                 "avg_goals_per_game": league_meta.get("avg_goals_per_game"),
                 "defending_champion": league_meta.get("defending_champion"),
                 "most_successful_club": league_meta.get("most_successful")
             }
 
             if include_standings:
-                record["standings"] = league_meta.get("standings", [])
+                record["standings"] = standings_records
 
-            if include_matches and league_name in LEAGUES_MATCHES:
-                record["matches_and_fixtures"] = LEAGUES_MATCHES[league_name]
+            if include_matches:
+                record["matches_and_fixtures"] = matches_records
 
-            if include_players and league_name in PLAYERS_LEADERBOARD:
-                record["players_leaderboard"] = PLAYERS_LEADERBOARD[league_name]
+            if include_players:
+                record["players_leaderboard"] = players_data
 
             dataset_records.append(record)
+
+            # Also push individual live match records for immediate live monitoring!
+            if include_matches and matches_records:
+                for match_item in matches_records:
+                    dataset_records.append({
+                        "record_type": "live_match_event",
+                        "competition_name": league_name,
+                        "competition_id": league_meta.get("id"),
+                        "home_team": match_item.get("home_team"),
+                        "home_logo": match_item.get("home_logo"),
+                        "away_team": match_item.get("away_team"),
+                        "away_logo": match_item.get("away_logo"),
+                        "score_home": match_item.get("score_home"),
+                        "score_away": match_item.get("score_away"),
+                        "status": match_item.get("status"),
+                        "minute": match_item.get("minute"),
+                        "stadium": match_item.get("stadium"),
+                        "xg_home": match_item.get("xg_home"),
+                        "xg_away": match_item.get("xg_away"),
+                        "possession_home": match_item.get("possession_home"),
+                        "possession_away": match_item.get("possession_away"),
+                        "events": match_item.get("events", [])
+                    })
 
         # 2. H2H Poisson Probability Simulation Record
         h2h_result = {}
@@ -90,31 +150,25 @@ async def main() -> None:
 
         if dataset_records:
             await Actor.push_data(dataset_records)
-            Actor.log.info(f"Successfully pushed {len(dataset_records)} football intelligence records to Apify dataset.")
+            Actor.log.info(f"Successfully pushed {len(dataset_records)} live football records to Apify dataset.")
 
         # Save executive summary in Key-Value store for Apify MCP & instant API tools
         summary_payload = {
             "totalCompetitionsAnalyzed": len(target_leagues),
+            "totalRecordsPushed": len(dataset_records),
+            "liveMatchesDetected": live_matches_count,
             "competitions": target_leagues,
             "h2hSimulation": {
                 "matchup": f"{h2h_home} vs {h2h_away}",
-                "homeWinPct": h2h_result.get("p_home"),
-                "drawPct": h2h_result.get("p_draw"),
-                "awayWinPct": h2h_result.get("p_away"),
-                "topScoreline": h2h_result.get("top_scorelines", [("N/A", 0)])[0][0] if h2h_result.get("top_scorelines") else "N/A"
-            },
-            "leaguesOverview": [
-                {
-                    "name": rec["competition_name"],
-                    "country": rec["country"],
-                    "teams": rec["teams_count"],
-                    "leader": rec.get("standings", [{}])[0].get("team", "N/A") if rec.get("standings") else "N/A"
-                }
-                for rec in dataset_records if rec.get("record_type") == "competition_summary"
-            ]
+                "home_xg": round(h2h_result.get("home_xg", 0.0), 2),
+                "away_xg": round(h2h_result.get("away_xg", 0.0), 2),
+                "p_home": h2h_result.get("p_home", 0.0),
+                "p_draw": h2h_result.get("p_draw", 0.0),
+                "p_away": h2h_result.get("p_away", 0.0)
+            }
         }
         await Actor.set_value("OUTPUT", summary_payload)
-        Actor.log.info("Stored football summary OUTPUT in Key-Value store.")
+        Actor.log.info("Executive summary written to Key-Value Store key 'OUTPUT'.")
 
 if __name__ == "__main__":
     asyncio.run(main())
