@@ -1,0 +1,192 @@
+{
+  "record_type": "competition_summary",
+  "competition_name": "CAF Champions League 🌍",
+  "competition_id": "CAFCL",
+  "country": "Pan-African",
+  "confederation": "CAF",
+  "type": "Continental Club Tournament",
+  "market_value": "€480 Million",
+  "teams_count": 4,
+  "avg_goals_per_game": 2.45,
+  "defending_champion": "Al Ahly SC 🇪🇬",
+  "most_successful_club": "Al Ahly SC (12 Titles)",
+  "standings": [
+    {
+      "rank": 3,
+      "team": "Power Dynamos",
+      "p": 6,
+      "w": 2,
+      "d": 1,
+      "l": 3,
+      "gf": 4,
+      "ga": 7,
+      "gd": -3,
+      "pts": 7,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    },
+    {
+      "rank": 4,
+      "team": "Rivers United FC",
+      "p": 6,
+      "w": 0,
+      "d": 1,
+      "l": 5,
+      "gf": 2,
+      "ga": 13,
+      "gd": -11,
+      "pts": 1,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    },
+    {
+      "rank": 2,
+      "team": "RSB Berkane",
+      "p": 6,
+      "w": 3,
+      "d": 1,
+      "l": 2,
+      "gf": 8,
+      "ga": 6,
+      "gd": 2,
+      "pts": 10,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    },
+    {
+      "rank": 1,
+      "team": "Pyramids FC",
+      "p": 6,
+      "w": 5,
+      "d": 1,
+      "l": 0,
+      "gf": 14,
+      "ga": 2,
+      "gd": 12,
+      "pts": 16,
+      "form": "W-W-D-W-W",
+      "status": "Champions League"
+    }
+  ],
+  "matches_and_fixtures": [
+    {
+      "id": "401911599",
+      "home_team": "Fomboni",
+      "home_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+      "away_team": "15 de Agosto",
+      "away_logo": "https://a.espncdn.com/combiner/i?img=/i/teamlogos/default-team-logo-500.png&w=100&h=100",
+      "status": "FT",
+      "minute": "Full Time",
+      "score_home": 0,
+      "score_away": 1,
+      "xg_home": 1.91,
+      "xg_away": 1.78,
+      "possession_home": 51,
+      "possession_away": 49,
+      "shots_home": 9,
+      "shots_away": 12,
+      "stadium": "Stade Omnisports de Malouzini, Iconi",
+      "referee": "FIFA Match Official",
+      "events": [],
+      "is_live_feed": true
+    }
+  ],
+  "players_leaderboard": {
+    "top_scorers": [
+      {
+        "rank": 1,
+        "player": "Erling Haaland",
+        "team": "Manchester City",
+        "goals": 10,
+        "pens": 1,
+        "matches": 7,
+        "xg": 8.4,
+        "mins_per_goal": 63
+      },
+      {
+        "rank": 2,
+        "player": "Cole Palmer",
+        "team": "Chelsea",
+        "goals": 6,
+        "pens": 1,
+        "matches": 7,
+        "xg": 5.2,
+        "mins_per_goal": 98
+      },
+      {
+        "rank": 3,
+        "player": "Luis Díaz",
+        "team": "Liverpool",
+        "goals": 5,
+        "pens": 0,
+        "matches": 7,
+        "xg": 4.1,
+        "mins_per_goal": 102
+      },
+      {
+        "rank": 4,
+        "player": "Bryan Mbeumo",
+        "team": "Brentford",
+        "goals": 5,
+        "pens": 1,
+        "matches": 7,
+        "xg": 3.8,
+        "mins_per_goal": 124
+      },
+      {
+        "rank": 5,
+        "player": "Mohamed Salah",
+        "team": "Liverpool",
+        "goals": 4,
+        "pens": 1,
+        "matches": 7,
+        "xg": 4.5,
+        "mins_per_goal": 145
+      },
+      {
+        "rank": 6,
+        "player": "Ollie Watkins",
+        "team": "Aston Villa",
+        "goals": 4,
+        "pens": 0,
+        "matches": 7,
+        "xg": 4.2,
+        "mins_per_goal": 138
+      }
+    ],
+    "top_assists": [
+      {
+        "rank": 1,
+        "player": "Bukayo Saka",
+        "team": "Arsenal",
+        "assists": 7,
+        "key_passes": 28,
+        "big_chances_created": 9
+      },
+      {
+        "rank": 2,
+        "player": "Cole Palmer",
+        "team": "Chelsea",
+        "assists": 4,
+        "key_passes": 22,
+        "big_chances_created": 7
+      },
+      {
+        "rank": 3,
+        "player": "Mohamed Salah",
+        "team": "Liverpool",
+        "assists": 4,
+        "key_passes": 19,
+        "big_chances_created": 6
+      },
+      {
+        "rank": 4,
+        "player": "James Maddison",
+        "team": "Tottenham Hotspur",
+        "assists": 3,
+        "key_passes": 18,
+        "big_chances_created": 5
+      }
+    ]
+  }
+}
