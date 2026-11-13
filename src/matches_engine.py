@@ -440,7 +440,7 @@ class MatchesEngine:
 
         # Ensure logos and realistic live ticks
         processed = []
-        now_sec = datetime.datetime.now().second
+        now_sec = datetime.datetime.now(datetime.timezone.utc).second
         for m in base_matches:
             m_copy = dict(m)
             m_copy["home_logo"] = m_copy.get("home_logo") or get_club_logo(m_copy["home_team"])
