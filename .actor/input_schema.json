@@ -7,6 +7,9 @@
             "title": "Selected Leagues & Tournaments",
             "type": "array",
             "description": "Select football competitions to harvest data for (leave empty for all supported).",
+            "items": {
+                "type": "string"
+            },
             "default": [
                 "English Premier League 🏴󠁧󠁢󠁥󠁮󠁧󠁿",
                 "Indian Super League (ISL) 🇮🇳",
@@ -66,7 +69,8 @@
             "title": "Apify API Token / Custom Key",
             "type": "string",
             "description": "Optional Apify API token or custom authentication key for MCP and programmatic triggers.",
-            "editor": "textfield"
+            "editor": "textfield",
+            "isSecret": true
         }
     }
 }
