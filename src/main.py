@@ -1,8 +1,10 @@
 """Apify Actor Entrypoint: Global Football Intelligence & Live Matchday Scoreboard."""
 
 import asyncio
+import math
 import os
 import sys
+from typing import Any, Dict, List
 
 # Ensure root directory is in sys.path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -12,6 +14,55 @@ from src.leagues_database import LEAGUES_DATABASE, LeaguesManager
 from src.matches_engine import MatchesEngine
 from src.players_stats import PlayersStatsManager, PLAYERS_LEADERBOARD
 from src.h2h_predictor_engine import H2HPredictorEngine
+
+
+LEAGUE_ALIASES: Dict[str, str] = {
+    "UEFA Champions League 🇪🇺": "UEFA Champions League 🏆",
+    "FIFA World Cup 2026 🏆": "FIFA World Cup 2026 🌍",
+}
+
+
+def sanitize_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    """Recursively strips None, NaN, and Infinity values for clean JSON schema validation."""
+    cleaned: Dict[str, Any] = {}
+    for k, v in record.items():
+        if v is None:
+            continue
+        if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+            continue
+        if isinstance(v, dict):
+            cleaned[k] = sanitize_record(v)
+        elif isinstance(v, list):
+            cleaned_list = []
+            for item in v:
+                if isinstance(item, dict):
+                    cleaned_list.append(sanitize_record(item))
+                elif item is not None and not (isinstance(item, float) and (math.isnan(item) or math.isinf(item))):
+                    cleaned_list.append(item)
+            cleaned[k] = cleaned_list
+        else:
+            cleaned[k] = v
+    return cleaned
+
+
+def resolve_leagues(selected_leagues: Any) -> List[str]:
+    """Maps input league names (including emoji aliases) to canonical LEAGUES_DATABASE keys."""
+    all_leagues = LeaguesManager.get_all_league_names()
+    if not selected_leagues:
+        return all_leagues
+    resolved: List[str] = []
+    for raw_lg in selected_leagues:
+        lg = LEAGUE_ALIASES.get(raw_lg, raw_lg)
+        if lg in LEAGUES_DATABASE and lg not in resolved:
+            resolved.append(lg)
+            continue
+        for db_key in all_leagues:
+            base_raw = raw_lg.split(" ")[0].lower()
+            if base_raw and raw_lg[:12].lower() in db_key.lower() and db_key not in resolved:
+                resolved.append(db_key)
+                break
+    return resolved or all_leagues
+
 
 async def main() -> None:
     async with Actor:
@@ -25,21 +76,19 @@ async def main() -> None:
         h2h_away = actor_input.get("simulateH2HAwayTeam", "Arsenal")
         api_key = actor_input.get("apiKey") or os.getenv("APIFY_TOKEN") or os.getenv("API_KEY", "")
 
-        all_leagues = LeaguesManager.get_all_league_names()
-        target_leagues = [lg for lg in selected_leagues if lg in LEAGUES_DATABASE] if selected_leagues else all_leagues
+        target_leagues = resolve_leagues(selected_leagues)
 
         Actor.log.info(f"Processing Live Football Intelligence across {len(target_leagues)} competitions...")
         if api_key:
             Actor.log.info("API Key / Token authentication provided.")
 
-        dataset_records = []
+        dataset_records: List[Dict[str, Any]] = []
         live_matches_count = 0
 
         # 1. League Records with REAL LIVE STANDINGS & REAL LIVE MATCHES
         for league_name in target_leagues:
             league_meta = LEAGUES_DATABASE[league_name]
 
-            # Fetch fresh real-time live standings
             standings_records = []
             if include_standings:
                 try:
@@ -49,7 +98,6 @@ async def main() -> None:
                     Actor.log.warning(f"Standings fetch warning for {league_name}: {e}")
                     standings_records = league_meta.get("standings", [])
 
-            # Fetch fresh real-time live matches & upcoming fixtures
             matches_records = []
             if include_matches:
                 try:
@@ -61,20 +109,19 @@ async def main() -> None:
                     Actor.log.warning(f"Matches fetch warning for {league_name}: {e}")
                     matches_records = []
 
-            # Fetch current top scorers & assists
-            players_data = {}
+            players_data: Dict[str, Any] = {}
             if include_players:
                 try:
                     df_scorers = PlayersStatsManager.get_top_scorers_df(league_name)
                     df_assists = PlayersStatsManager.get_top_assists_df(league_name)
                     players_data = {
                         "top_scorers": df_scorers.to_dict(orient="records") if not df_scorers.empty else [],
-                        "top_assists": df_assists.to_dict(orient="records") if not df_assists.empty else []
+                        "top_assists": df_assists.to_dict(orient="records") if not df_assists.empty else [],
                     }
-                except Exception as e:
+                except Exception:
                     players_data = PLAYERS_LEADERBOARD.get(league_name, {})
 
-            record = {
+            record: Dict[str, Any] = {
                 "record_type": "competition_summary",
                 "competition_name": league_name,
                 "competition_id": league_meta.get("id"),
@@ -85,7 +132,7 @@ async def main() -> None:
                 "teams_count": len(standings_records) if standings_records else league_meta.get("teams_count"),
                 "avg_goals_per_game": league_meta.get("avg_goals_per_game"),
                 "defending_champion": league_meta.get("defending_champion"),
-                "most_successful_club": league_meta.get("most_successful")
+                "most_successful_club": league_meta.get("most_successful"),
             }
 
             if include_standings:
@@ -97,12 +144,11 @@ async def main() -> None:
             if include_players:
                 record["players_leaderboard"] = players_data
 
-            dataset_records.append(record)
+            dataset_records.append(sanitize_record(record))
 
-            # Also push individual live match records for immediate live monitoring!
             if include_matches and matches_records:
                 for match_item in matches_records:
-                    dataset_records.append({
+                    dataset_records.append(sanitize_record({
                         "record_type": "live_match_event",
                         "competition_name": league_name,
                         "competition_id": league_meta.get("id"),
@@ -119,11 +165,11 @@ async def main() -> None:
                         "xg_away": match_item.get("xg_away"),
                         "possession_home": match_item.get("possession_home"),
                         "possession_away": match_item.get("possession_away"),
-                        "events": match_item.get("events", [])
-                    })
+                        "events": match_item.get("events", []),
+                    }))
 
         # 2. H2H Poisson Probability Simulation Record
-        h2h_result = {}
+        h2h_result: Dict[str, Any] = {}
         if simulate_h2h:
             Actor.log.info(f"Running H2H Poisson simulation for {h2h_home} vs {h2h_away}...")
             h2h_result = H2HPredictorEngine.calculate_match_odds(
@@ -133,36 +179,31 @@ async def main() -> None:
                 home_defense_rating=1.05,
                 away_attack_rating=1.45,
                 away_defense_rating=1.25,
-                home_advantage=1.15
+                home_advantage=1.15,
             )
 
-            p_home_val = h2h_result.get("home_win_prob", 45.0)
-            p_draw_val = h2h_result.get("draw_prob", 25.0)
-            p_away_val = h2h_result.get("away_win_prob", 30.0)
-
-            dataset_records.append({
+            dataset_records.append(sanitize_record({
                 "record_type": "h2h_poisson_prediction",
                 "home_team": h2h_home,
                 "away_team": h2h_away,
                 "home_expected_goals_xg": round(h2h_result.get("home_xg", 1.8), 2),
                 "away_expected_goals_xg": round(h2h_result.get("away_xg", 1.2), 2),
-                "win_probability_home_pct": p_home_val,
-                "draw_probability_pct": p_draw_val,
-                "win_probability_away_pct": p_away_val,
+                "win_probability_home_pct": h2h_result.get("home_win_prob", 45.0),
+                "draw_probability_pct": h2h_result.get("draw_prob", 25.0),
+                "win_probability_away_pct": h2h_result.get("away_win_prob", 30.0),
                 "over_2_5_goals_probability_pct": h2h_result.get("over_2_5_prob", 55.0),
                 "both_teams_to_score_btts_pct": h2h_result.get("btts_prob", 50.0),
                 "most_likely_scorelines": [
                     {"score": s.get("score"), "probability_pct": s.get("prob")}
                     for s in h2h_result.get("top_scorelines", [])
-                ]
-            })
+                ],
+            }))
 
         if dataset_records:
             await Actor.push_data(dataset_records)
             Actor.log.info(f"Successfully pushed {len(dataset_records)} live football records to Apify dataset.")
 
-        # Save executive summary in Key-Value store for Apify MCP & instant API tools
-        summary_payload = {
+        summary_payload = sanitize_record({
             "totalCompetitionsAnalyzed": len(target_leagues),
             "totalRecordsPushed": len(dataset_records),
             "liveMatchesDetected": live_matches_count,
@@ -173,11 +214,15 @@ async def main() -> None:
                 "away_xg": round(h2h_result.get("away_xg", 0.0), 2),
                 "home_win_prob": h2h_result.get("home_win_prob", 0.0),
                 "draw_prob": h2h_result.get("draw_prob", 0.0),
-                "away_win_prob": h2h_result.get("away_win_prob", 0.0)
-            }
-        }
+                "away_win_prob": h2h_result.get("away_win_prob", 0.0),
+            } if simulate_h2h else None,
+        })
         await Actor.set_value("OUTPUT", summary_payload)
+        if not dataset_records:
+            await Actor.fail(status_message="No football intelligence records were produced.")
+            return
         Actor.log.info("Executive summary written to Key-Value Store key 'OUTPUT'.")
+
 
 if __name__ == "__main__":
     asyncio.run(main())
