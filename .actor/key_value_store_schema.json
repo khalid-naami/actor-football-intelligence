@@ -1,0 +1,15 @@
+{
+    "actorKeyValueStoreSchemaVersion": 1,
+    "title": "Global Football Intelligence Key-Value Store",
+    "description": "Key-value store schema for Global Football Intelligence & Poisson H2H Predictor.",
+    "collections": {
+        "default": {
+            "title": "Default Output Records",
+            "description": "Executive football summary and H2H prediction digest stored under OUTPUT.",
+            "keyPrefix": "OUTPUT",
+            "contentTypes": [
+                "application/json"
+            ]
+        }
+    }
+}
