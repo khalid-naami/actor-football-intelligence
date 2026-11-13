@@ -1,55 +1,224 @@
 {
     "actorSpecification": 1,
     "fields": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
         "type": "object",
         "properties": {
             "record_type": {
-                "type": "string",
+                "type": ["string", "null"],
                 "title": "Record Type"
             },
             "competition_name": {
-                "type": "string",
+                "type": ["string", "null"],
                 "title": "Competition Name"
             },
             "competition_id": {
-                "type": "string",
+                "type": ["string", "null"],
                 "title": "Tournament Code"
             },
             "country": {
-                "type": "string",
+                "type": ["string", "null"],
                 "title": "Country / Region"
             },
+            "confederation": {
+                "type": ["string", "null"],
+                "title": "Confederation"
+            },
+            "type": {
+                "type": ["string", "null"],
+                "title": "Competition Type"
+            },
+            "market_value": {
+                "type": ["string", "null"],
+                "title": "Market Value"
+            },
+            "teams_count": {
+                "type": ["integer", "null"],
+                "title": "Teams Count"
+            },
+            "avg_goals_per_game": {
+                "type": ["number", "null"],
+                "title": "Avg Goals Per Game"
+            },
+            "defending_champion": {
+                "type": ["string", "null"],
+                "title": "Defending Champion"
+            },
+            "most_successful_club": {
+                "type": ["string", "null"],
+                "title": "Most Successful Club"
+            },
             "standings": {
-                "type": "array",
-                "title": "League Table Standings"
+                "type": ["array", "null"],
+                "title": "League Table Standings",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
             },
             "matches_and_fixtures": {
-                "type": "array",
-                "title": "Fixtures & Live Match States"
+                "type": ["array", "null"],
+                "title": "Fixtures & Live Match States",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
             },
             "players_leaderboard": {
-                "type": "object",
-                "title": "Top Scorers & Assists Leaders"
+                "type": ["object", "null"],
+                "title": "Top Scorers & Assists Leaders",
+                "additionalProperties": true
             },
             "home_team": {
-                "type": "string",
-                "title": "H2H Home Team"
+                "type": ["string", "null"],
+                "title": "Home Team"
+            },
+            "home_logo": {
+                "type": ["string", "null"],
+                "title": "Home Logo URL"
             },
             "away_team": {
-                "type": "string",
-                "title": "H2H Away Team"
+                "type": ["string", "null"],
+                "title": "Away Team"
+            },
+            "away_logo": {
+                "type": ["string", "null"],
+                "title": "Away Logo URL"
+            },
+            "score_home": {
+                "type": ["integer", "string", "null"],
+                "title": "Home Score"
+            },
+            "score_away": {
+                "type": ["integer", "string", "null"],
+                "title": "Away Score"
+            },
+            "status": {
+                "type": ["string", "null"],
+                "title": "Match Status"
+            },
+            "minute": {
+                "type": ["string", "null"],
+                "title": "Match Minute / Kickoff"
+            },
+            "stadium": {
+                "type": ["string", "null"],
+                "title": "Stadium"
+            },
+            "xg_home": {
+                "type": ["number", "null"],
+                "title": "Home xG"
+            },
+            "xg_away": {
+                "type": ["number", "null"],
+                "title": "Away xG"
+            },
+            "possession_home": {
+                "type": ["number", "null"],
+                "title": "Home Possession (%)"
+            },
+            "possession_away": {
+                "type": ["number", "null"],
+                "title": "Away Possession (%)"
+            },
+            "events": {
+                "type": ["array", "null"],
+                "title": "Match Events",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "home_expected_goals_xg": {
+                "type": ["number", "null"],
+                "title": "H2H Home Expected Goals (xG)"
+            },
+            "away_expected_goals_xg": {
+                "type": ["number", "null"],
+                "title": "H2H Away Expected Goals (xG)"
             },
             "win_probability_home_pct": {
-                "type": "number",
+                "type": ["number", "null"],
                 "title": "Home Win Probability (%)"
             },
             "draw_probability_pct": {
-                "type": "number",
+                "type": ["number", "null"],
                 "title": "Draw Probability (%)"
             },
             "win_probability_away_pct": {
-                "type": "number",
+                "type": ["number", "null"],
                 "title": "Away Win Probability (%)"
+            },
+            "over_2_5_goals_probability_pct": {
+                "type": ["number", "null"],
+                "title": "Over 2.5 Goals Probability (%)"
+            },
+            "both_teams_to_score_btts_pct": {
+                "type": ["number", "null"],
+                "title": "Both Teams To Score (%)"
+            },
+            "most_likely_scorelines": {
+                "type": ["array", "null"],
+                "title": "Most Likely Scorelines",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+            }
+        },
+        "additionalProperties": true,
+        "required": []
+    },
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": [
+                    "record_type",
+                    "competition_name",
+                    "competition_id",
+                    "country",
+                    "standings",
+                    "matches_and_fixtures",
+                    "players_leaderboard",
+                    "home_team"
+                ]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "record_type": {
+                        "label": "Record Type",
+                        "format": "text"
+                    },
+                    "competition_name": {
+                        "label": "Competition Name",
+                        "format": "text"
+                    },
+                    "competition_id": {
+                        "label": "Tournament Code",
+                        "format": "text"
+                    },
+                    "country": {
+                        "label": "Country / Region",
+                        "format": "text"
+                    },
+                    "standings": {
+                        "label": "League Table Standings",
+                        "format": "array"
+                    },
+                    "matches_and_fixtures": {
+                        "label": "Fixtures & Live Match States",
+                        "format": "array"
+                    },
+                    "players_leaderboard": {
+                        "label": "Top Scorers & Assists Leaders",
+                        "format": "object"
+                    },
+                    "home_team": {
+                        "label": "H2H Home Team",
+                        "format": "text"
+                    }
+                }
             }
         }
     }
